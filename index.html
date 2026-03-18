@@ -2,15 +2,31 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Tabela personalizada</title>
+    <title>Teste Tabela</title>
     <link rel="stylesheet" href="estiloTabela.css">
 </head>
 <body>
-<tabela linha="5" coluna="5">
-    <expand linha="0" coluna="1" tamanho="2" tipo="linha"></expand>
-    <expand linha="2" coluna="2" tamanho="3" tipo="coluna"></expand>
+
+<tabela linha="6" coluna="4">
+
+    <dados>
+        Alunos TDS
+        Nome | Idade | Curso | Turno
+        Ana | 20 | TDS | Noite
+        Bruno | 22 | TDS | Manhã
+        Carla | 19 | TDS | Noite
+        Diego | 25 | TDS | Manhã
+    </dados>
+
+    <expand linha="0" coluna="0" tamanho="4" tipo="coluna"></expand>
+
+    <expand linha="1" coluna="0" tamanho="2" tipo="linha"></expand>
+
+    <expand linha="3" coluna="1" tamanho="2" tipo="coluna"></expand>
+
 </tabela>
+
 <script src="fwkTabela.js"></script>
+
 </body>
 </html>
-
