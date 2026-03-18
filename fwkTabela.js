@@ -35,6 +35,13 @@ for (let i = 0; i < tabela.length; i++) {
         alert("Dados excedem o número de linhas");
         erro = true;
     }
+    for (let i = 0; i < dados.length; i++) {
+    if (dados[i].length > colunas) {
+        alert("Dados excedem o número de colunas");
+        erro = true;
+        break;
+    }
+}
 
     let espan = tab.getElementsByTagName("expand");
     let matriz = [];
