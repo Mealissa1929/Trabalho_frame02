@@ -1,12 +1,12 @@
 let tabela = document.getElementsByTagName("tabela");
 
-for(let i = 0; i < tabela.length; i++){
+for (let i = 0; i < tabela.length; i++) {
 
     let tab = tabela[i];
     let linhas = parseInt(tab.getAttribute("linha"));
     let colunas = parseInt(tab.getAttribute("coluna"));
 
-    if(!linhas || !colunas){
+    if (!linhas || !colunas) {
         alert("Tabela inválida: linhas ou colunas não definidas");
         continue;
     }
@@ -16,7 +16,7 @@ for(let i = 0; i < tabela.length; i++){
     let dadosTag = tab.getElementsByTagName("dados")[0];
     let dados = [];
 
-    if(dadosTag){
+    if (dadosTag) {
         let texto = dadosTag.textContent.trim();
 
         let linhasDados = texto
@@ -31,28 +31,27 @@ for(let i = 0; i < tabela.length; i++){
 
     let erro = false;
 
-    if(dados.length > linhas){
+    if (dados.length > linhas) {
         alert("Dados excedem o número de linhas");
         erro = true;
     }
 
     let espan = tab.getElementsByTagName("expand");
-
     let matriz = [];
 
-    for(let j = 0; j < espan.length; j++){
+    for (let j = 0; j < espan.length; j++) {
 
         let linha = parseInt(espan[j].getAttribute("linha"));
         let coluna = parseInt(espan[j].getAttribute("coluna"));
         let tamanho = parseInt(espan[j].getAttribute("tamanho"));
         let tipo = espan[j].getAttribute("tipo");
 
-        if(tipo == "coluna" && coluna + tamanho > colunas){
+        if (tipo == "coluna" && coluna + tamanho > colunas) {
             alert("Colspan inválido");
             erro = true;
         }
 
-        if(tipo == "linha" && linha + tamanho > linhas){
+        if (tipo == "linha" && linha + tamanho > linhas) {
             alert("Rowspan inválido");
             erro = true;
         }
@@ -60,25 +59,29 @@ for(let i = 0; i < tabela.length; i++){
         matriz.push([linha, coluna, tamanho, tipo]);
     }
 
-    if(erro){
+    if (erro) {
         alert("Tabela não criada por erro de validação");
         continue;
     }
 
-    let quantRowspan = [];
+    let ocupado = [];
 
-    for(let i = 0; i < colunas; i++){
-        quantRowspan[i] = 0;
+    for (let x = 0; x < linhas; x++) {
+        ocupado[x] = [];
+        for (let y = 0; y < colunas; y++) {
+            ocupado[x][y] = false;
+        }
     }
 
-    for(let x = 0; x < linhas; x++){
+    for (let x = 0; x < linhas; x++) {
 
         let tr = document.createElement("tr");
+        let y = 0;
 
-        for(let y = 0; y < colunas; y++){
+        while (y < colunas) {
 
-            if(quantRowspan[y] > 0){
-                quantRowspan[y]--;
+            if (ocupado[x][y]) {
+                y++;
                 continue;
             }
 
@@ -87,38 +90,45 @@ for(let i = 0; i < tabela.length; i++){
             let colspan = 1;
             let rowspan = 1;
 
-            for(let k = 0; k < matriz.length; k++){
+            for (let k = 0; k < matriz.length; k++) {
 
-                if(matriz[k][0] == x && matriz[k][1] == y){
+                if (matriz[k][0] == x && matriz[k][1] == y) {
 
-                    if(matriz[k][3] == "coluna"){
-                        colspan = parseInt(matriz[k][2]);
+                    if (matriz[k][3] == "coluna") {
+                        colspan = matriz[k][2];
                     }
 
-                    if(matriz[k][3] == "linha"){
-                        rowspan = parseInt(matriz[k][2]);
+                    if (matriz[k][3] == "linha") {
+                        rowspan = matriz[k][2];
                     }
 
                     break;
                 }
             }
 
-            if(dados[x] && dados[x][y]){
+            if (dados[x] && dados[x][y]) {
                 td.innerText = dados[x][y];
             }
 
-            if(colspan > 1){
+            if (colspan > 1) {
                 td.setAttribute("colspan", colspan);
             }
 
-            if(rowspan > 1){
+            if (rowspan > 1) {
                 td.setAttribute("rowspan", rowspan);
-                quantRowspan[y] = rowspan - 1;
+            }
+
+            for (let i2 = 0; i2 < rowspan; i2++) {
+                for (let j2 = 0; j2 < colspan; j2++) {
+                    if (x + i2 < linhas && y + j2 < colunas) {
+                        ocupado[x + i2][y + j2] = true;
+                    }
+                }
             }
 
             tr.appendChild(td);
 
-            y += colspan - 1;
+            y++;
         }
 
         novaTabela.appendChild(tr);
