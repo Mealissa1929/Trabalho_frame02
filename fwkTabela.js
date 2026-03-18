@@ -25,7 +25,7 @@ for(let i = 0; i < tabela.length; i++){
             .filter(l => l !== "");
 
         dados = linhasDados.map(linha =>
-            linha.split("|").map(c => c.trim()).filter(c => c !== "")
+            linha.split("|").map(c => c.trim())
         );
     }
 
@@ -34,13 +34,6 @@ for(let i = 0; i < tabela.length; i++){
     if(dados.length > linhas){
         alert("Dados excedem o número de linhas");
         erro = true;
-    }
-
-    for(let d = 0; d < dados.length; d++){
-        if(dados[d].length > colunas){
-            alert("Dados excedem o número de colunas");
-            erro = true;
-        }
     }
 
     let espan = tab.getElementsByTagName("expand");
