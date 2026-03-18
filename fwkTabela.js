@@ -7,7 +7,7 @@ for(let i = 0; i < tabela.length; i++){
     let colunas = parseInt(tab.getAttribute("coluna"));
 
     if(!linhas || !colunas){
-        console.error("Tabela inválida: linhas ou colunas não definidas");
+        alert("Tabela inválida: linhas ou colunas não definidas");
         continue;
     }
 
@@ -32,13 +32,13 @@ for(let i = 0; i < tabela.length; i++){
     let erro = false;
 
     if(dados.length > linhas){
-        console.error("Dados excedem o número de linhas");
+        alert("Dados excedem o número de linhas");
         erro = true;
     }
 
     for(let d = 0; d < dados.length; d++){
         if(dados[d].length > colunas){
-            console.error("Dados excedem o número de colunas");
+            alert("Dados excedem o número de colunas");
             erro = true;
         }
     }
@@ -55,12 +55,12 @@ for(let i = 0; i < tabela.length; i++){
         let tipo = espan[j].getAttribute("tipo");
 
         if(tipo == "coluna" && coluna + tamanho > colunas){
-            console.error("Colspan inválido");
+            alert("Colspan inválido");
             erro = true;
         }
 
         if(tipo == "linha" && linha + tamanho > linhas){
-            console.error("Rowspan inválido");
+            alert("Rowspan inválido");
             erro = true;
         }
 
@@ -68,7 +68,7 @@ for(let i = 0; i < tabela.length; i++){
     }
 
     if(erro){
-        console.error("Tabela não criada por erro de validação");
+        alert("Tabela não criada por erro de validação");
         continue;
     }
 
