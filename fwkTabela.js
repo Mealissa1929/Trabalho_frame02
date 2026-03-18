@@ -25,7 +25,7 @@ for(let i = 0; i < tabela.length; i++){
             .filter(l => l !== "");
 
         dados = linhasDados.map(linha =>
-            linha.split("|").map(c => c.trim())
+            linha.split("|").map(c => c.trim()).filter(c => c !== "")
         );
     }
 
