@@ -22,7 +22,7 @@ for(let i = 0; i < tabela.length; i++){
         let linhasDados = texto
             .split("\n")
             .map(l => l.trim())
-            .filter(l => l);
+            .filter(l => l !== "");
 
         dados = linhasDados.map(linha =>
             linha.split("|").map(c => c.trim())
