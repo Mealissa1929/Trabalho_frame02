@@ -17,7 +17,7 @@ for(let i = 0; i < tabela.length; i++){
     let dados = [];
 
     if(dadosTag){
-        let texto = dadosTag.innerText.trim();
+        let texto = dadosTag.textContent.trim();
 
         let linhasDados = texto
             .split("\n")
